@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: cs-dashboard-frontend
+    ports:
+      - "3005:80"
+    restart: unless-stopped

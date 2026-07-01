@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Widget Test Page</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f1f5f9;
+            color: #334155;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header {
+            background-color: #fff;
+            padding: 20px 40px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+            color: #0f172a;
+        }
+        main {
+            flex: 1;
+            padding: 40px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .hero {
+            background: linear-gradient(135deg, #2563eb, #1e40af);
+            color: white;
+            padding: 60px 40px;
+            border-radius: 16px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        .hero h2 {
+            margin-top: 0;
+            font-size: 32px;
+        }
+        .dummy-content {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>My Awesome Store</h1>
+        <nav>
+            <a href="#" style="color: #64748b; text-decoration: none; margin-left: 20px;">Home</a>
+            <a href="#" style="color: #64748b; text-decoration: none; margin-left: 20px;">Products</a>
+            <a href="#" style="color: #64748b; text-decoration: none; margin-left: 20px;">Contact</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="hero">
+            <h2>Welcome to our Test Store!</h2>
+            <p>This is a dummy page to help you test how the Chatbot Widget looks and behaves when embedded.</p>
+        </div>
+
+        <div class="dummy-content">
+            <h3>Look in the bottom right corner! ↘️</h3>
+            <p>You should see the floating chat button. Click it to open the widget and test out the new dark theme, the WebSocket connection, and the 2-row product grid layout!</p>
+            <p><strong>Note:</strong> Pastikan backend berjalan di <code>ws://localhost:8000</code> atau sesuaikan atribut <code>data-ws-url</code> pada script tag di dalam file html ini jika backend Anda berada di port yang berbeda.</p>
+        </div>
+    </main>
+
+    <!-- 
+      Injecting the chatbot widget here.
+      Since this file is located in the 'public' folder, we can just reference widget.js relatively. 
+    -->
+    <script 
+        src="./widget.js" 
+        data-client-id="test-dummy-client" 
+        data-ws-url="ws://localhost:8000/api/v1"
+        defer>
+    </script>
+
+</body>
+</html>
