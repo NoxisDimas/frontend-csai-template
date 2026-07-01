@@ -1,12 +1,12 @@
 # Stage 1: Build the React application
-FROM node:20 AS builder
+FROM node:20-alpine AS builder
 
 WORKDIR /app
 
 # Copy package.json and package-lock.json
 COPY package*.json ./
 
-# Install dependencies (using legacy peer deps to avoid ERESOLVE with date-fns & react-day-picker)
+# Install dependencies (using legacy peer deps if needed based on previous config)
 RUN npm ci --legacy-peer-deps
 
 # Copy the rest of the application code
@@ -15,17 +15,19 @@ COPY . .
 # Build the application
 RUN npm run build
 
-# Stage 2: Serve the application with Nginx
-FROM nginx:alpine
+# Stage 2: Serve the application using Node.js
+FROM node:20-alpine
+
+WORKDIR /app
+
+# Install 'serve' to serve static files
+RUN npm install -g serve
 
 # Copy the build output from the builder stage
-COPY --from=builder /app/dist /usr/share/nginx/html
+COPY --from=builder /app/dist ./dist
 
-# Copy the custom Nginx configuration
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+# Expose port 3000
+EXPOSE 3000
 
-# Expose port 80
-EXPOSE 80
-
-# Start Nginx
-CMD ["nginx", "-g", "daemon off;"]
+# Start the application using 'serve' on port 3000
+CMD ["serve", "-s", "dist", "-l", "3000"]
