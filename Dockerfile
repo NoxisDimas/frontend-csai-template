@@ -6,6 +6,10 @@ WORKDIR /app
 # Copy package.json and package-lock.json
 COPY package*.json ./
 
+# Increase timeout limits to prevent EIDLETIMEOUT on slow networks
+ENV npm_config_fetch_retry_maxtimeout=600000 \
+    npm_config_fetch_timeout=600000
+
 # Install dependencies (using legacy peer deps if needed based on previous config)
 RUN npm ci --legacy-peer-deps
 
